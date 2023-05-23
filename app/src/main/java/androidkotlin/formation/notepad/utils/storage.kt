@@ -9,6 +9,12 @@ import java.util.*
 
 private const val TAG = "storage"
 
+/**
+ * Ouvre/Crée un fichier puis l'assigne à une propriété de Note - Ecrit dans le fichier.
+ * Le fichier est stocké dans les files du context de l'application.
+ * @param context - Context de l'application
+ * @param note - Objet que l'on souhaite conserver.
+ */
 fun persistNote(context: Context, note: Note) {
     if(note.filename.isEmpty()) {
         note.filename = UUID.randomUUID().toString() + ".note"
@@ -19,6 +25,11 @@ fun persistNote(context: Context, note: Note) {
     outputStream.close()
 }
 
+/**
+ * Charge la liste des fichiers depuis le context de l'application
+ * @param context - Context de l'application.
+ * @return une liste d'objets Note
+ */
 fun loadNotes(context: Context) : MutableList<Note> {
     val notes = mutableListOf<Note>()
 
@@ -34,10 +45,23 @@ fun loadNotes(context: Context) : MutableList<Note> {
     return notes
 }
 
+/**
+ * On supprime le fichier présent dans les files du context
+ * en utilisant le nom du fichier (propriété de l'objet Note)
+ * @param context - Context de l'application
+ * @param note - Objet que l'on souhaite supprimer
+ */
 fun deleteNote(context: Context, note: Note) {
     context.deleteFile(note.filename)
 }
 
+/**
+ * Charge une note depuis un nom de fichier
+ * utiliser lors du chargement de l'ensemble des notes.
+ * @param context - Context de l'application
+ * @filename - Nom du fichier que l'on souhaite charger et lire.
+ * @return un objet Note.
+ */
 private fun loadNote(context: Context, filename: String): Note {
     val fileInput = context.openFileInput(filename)
     val inputStream = ObjectInputStream(fileInput)

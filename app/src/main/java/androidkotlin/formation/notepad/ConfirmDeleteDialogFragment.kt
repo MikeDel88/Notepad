@@ -6,6 +6,9 @@ import android.content.DialogInterface
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
 
+/**
+ * Boite de dialog de confirmation avec les listener confimer/annuler.
+ */
 class ConfirmDeleteDialogFragment(private val noteTitle: String? = ""): DialogFragment() {
 
     interface ConfirmeDeleteDialogListener {
